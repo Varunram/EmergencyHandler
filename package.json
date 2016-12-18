@@ -1,0 +1,35 @@
+{
+  "name": "108-Incidents",
+  "version": "1.0.0",
+  "description": "108 Incidents Tracker",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Varunram Ganesh",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "*",
+    "debug": "~2.2.0",
+    "ejs": "*",
+    "express": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "express-messages": "*",
+    "firebase": "*",
+    "morgan": "*",
+    "multer": "*",
+    "path": "*",
+    "mongodb": "*",
+    "mongoose": "*",
+    "morgan": "~1.6.1",
+    "multer": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "serve-favicon": "~2.3.0"
+  }
+}

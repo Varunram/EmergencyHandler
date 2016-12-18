@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+	<h1>Edit Incident</h1>
+	<form enctype="multipart/form-data" method="post" action="/incidents/edit/<%=id %>">
+	  <div class="form-group">
+	    <label>Incident Lat</label>
+	    <input type="text" class="form-control" name="lat" value="<%=incident.artist %>" placeholder="Artist Name">
+	  </div>
+	  <div class="form-group">
+	    <label>Incident Lng</label>
+	    <input type="text" class="form-control" name="lng" value="<%=incident.title %>" placeholder="Incident Lng">
+	  </div>
+	  <div class="form-group">
+	    <label>Status</label>
+	    <select name="status" class="form-control">
+	    	<% for(var i=0; i<statuses.length; i++) {%>
+   				<option value="<%= statuses[i].name %>"
+   				<% if(incident.status == statuses[i].name) { %>
+   					selected
+   				<% } %>>
+   				<%= statuses[i].name %></option>
+			<% } %>
+	    </select>
+	  </div>
+	  <button type="submit" class="btn btn-default">Submit</button>
+	   <a class="btn btn-danger" href="/incidents">Close</a>
+	</form>
+<% include ../partials/footer %>

@@ -1,0 +1,457 @@
+<!-- DOCTYPE html -->
+<html>
+<head> 
+  <title>108 Incidents Control Panel </title>
+  <link rel = "stylesheet" href = "http://bootswatch.com/cyborg/bootstrap.min.css">
+  <link rel = "stylesheet" href = "/css/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function(){
+        $("#hide").click(function(){
+            $("#map").toggle();
+        });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+        $('.exp').click(function(){
+             $('#map').toggleClass('selected');
+        });
+    });
+  </script>
+  <style>
+    .selected{
+      height: 100%;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <script src= "/js/main.js"></script>
+  <style>
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 80%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s
+    }
+
+    /* Add Animation */
+    @-webkit-keyframes animatetop {
+        from {top:-300px; opacity:0}
+        to {top:0; opacity:1}
+    }
+
+    @keyframes animatetop {
+        from {top:-300px; opacity:0}
+        to {top:0; opacity:1}
+    }
+
+    /* The Close Button */
+    .close {
+        color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal-header {
+        font-family: 'Roboto', sans-serif;
+        font-size: 35px;
+        height: 100px;
+        background-color: #F06008;
+        color: white;
+        z-index:100;
+        text-align: center;
+    }
+
+    .modal-body {
+      height: 130px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 30px;
+      z-index:100;
+      text-align: center;
+    }
+
+    .modal-footer {
+      font-family: 'Roboto', sans-serif;
+      font-size: 30px;
+      height: 100px;
+      background-color: #5DADE2;
+      color: white;
+      z-index:100;
+      text-align: center;
+    }
+    #myBtn{
+      font-family: 'Roboto', sans-serif;
+      font-size: 15px;
+      color: #C4C4C4;
+      width: 260px;
+      height: 90px;
+      float: left;
+      border: 1px solid #00d2ff;
+      opacity: 1;
+      background: none;
+      padding: 15px;
+      cursor: pointer;
+    }
+    .hdr{
+      height: 65px;
+      padding-top: -10px;
+      padding-bottom: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed ">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">108 Control Panel</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse navbar-right">
+        <ul class="nav navbar-nav">
+          <li><a href="users/register">Authenticate</a></li>
+          <li><a href="users/login">Login</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <ul class="list-group">
+          <li class="list-group-item"><a href="/incidents">View Incidents</a></li>
+          <li class="list-group-item"><a href="/ambulances">View Ambulances</a></li>
+          <li class="list-group-item"><a href="/statuses">View Statuses</a></li><hr />
+          <li class="list-group-item"><a href="/statuses">Ambulances List</a></li><hr />
+        </ul>
+      </div>
+      <div class="col-md-9">
+        <% if (success_msg != false) { %>
+          <div class="alert alert-success" >
+            <%= success_msg %>
+          </div>
+        <% } %>
+        <% if (error_msg != false){ %>
+          <div class ="alert alert-danger">
+            <%= error_msg %>
+          </div>
+        <% } %>
+    <h1> Position of Ambulances
+    <hr />
+ </h1>
+    <div class="row ambulances">
+        <% for(var i=0; i<20; i++) {%>
+            <div class="col-md-4 ambulances">
+                <h4 class="album-lng text-center"><%= ambulances[i].lng %></h4>
+                <p class="lat-name text-center"><%= ambulances[i].lat %></p>
+                <hr />
+                <script>
+                    var i1 = new Array(30);
+                    var j1 = new Array(30);
+                    j1[<%=i%>] = <%=ambulances[i].lng %>
+                    i1[<%=i%>] = <%=ambulances[i].lat %>
+
+                    function initMap() {
+                        var saidapetgh = {
+                            lat: i1[<%=i%>],
+                            lng: j1[<%=i%>]
+                        };
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                            center: saidapetgh,
+                            zoom: 12,
+                            styles: [{
+                                elementType: 'geometry',
+                                stylers: [{
+                                    color: '#242f3e'
+                                }]
+                            }, {
+                                elementType: 'labels.text.stroke',
+                                stylers: [{
+                                    color: '#242f3e'
+                                }]
+                            }, {
+                                elementType: 'labels.text.fill',
+                                stylers: [{
+                                    color: '#746855'
+                                }]
+                            }, {
+                                featureType: 'administrative.locality',
+                                elementType: 'labels.text.fill',
+                                stylers: [{
+                                    color: '#d59563'
+                                }]
+                            }, {
+                                featureType: 'poi',
+                                elementType: 'labels.text.fill',
+                                stylers: [{
+                                    color: '#d59563'
+                                }]
+                            }, {
+                                featureType: 'poi.park',
+                                elementType: 'geometry',
+                                stylers: [{
+                                    color: '#263c3f'
+                                }]
+                            }, {
+                                featureType: 'poi.park',
+                                elementType: 'labels.text.fill',
+                                stylers: [{
+                                    color: '#6b9a76'
+                                }]
+                            }, {
+                                featureType: 'road',
+                                elementType: 'geometry',
+                                stylers: [{
+                                    color: '#38414e'
+                                }]
+                            }, {
+                                featureType: 'road',
+                                elementType: 'geometry.stroke',
+                                stylers: [{
+                                    color: '#212a37'
+                                }]
+                            }, {
+                                featureType: 'road',
+                                elementType: 'labels.text.fill',
+                                stylers: [{
+                                    color: '#9ca5b3'
+                                }]
+                            }, {
+                                featureType: 'road.highway',
+                                elementType: 'geometry',
+                                stylers: [{
+                                    color: '#746855'
+                                }]
+                            }, {
+                                featureType: 'road.highway',
+                                elementType: 'geometry.stroke',
+                                stylers: [{
+                                    color: '#1f2835'
+                                }]
+                            }, {
+                                featureType: 'road.highway',
+                                elementType: 'labels.text.fill',
+                                stylers: [{
+                                    color: '#f3d19c'
+                                }]
+                            }, {
+                                featureType: 'transit',
+                                elementType: 'geometry',
+                                stylers: [{
+                                    color: '#2f3948'
+                                }]
+                            }, {
+                                featureType: 'transit.station',
+                                elementType: 'labels.text.fill',
+                                stylers: [{
+                                    color: '#d59563'
+                                }]
+                            }, {
+                                featureType: 'water',
+                                elementType: 'geometry',
+                                stylers: [{
+                                    color: '#17263c'
+                                }]
+                            }, {
+                                featureType: 'water',
+                                elementType: 'labels.text.fill',
+                                stylers: [{
+                                    color: '#515c6d'
+                                }]
+                            }, {
+                                featureType: 'water',
+                                elementType: 'labels.text.stroke',
+                                stylers: [{
+                                    color: '#17263c'
+                                }]
+                            }]
+                        });
+                        var amb1 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[0].lat %>,
+                                lng: <%=ambulances[0].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[1].lat %>,
+                                lng: <%=ambulances[1].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[2].lat %>,
+                                lng: <%=ambulances[2].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[3].lat %>,
+                                lng: <%=ambulances[3].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[4].lat %>,
+                                lng: <%=ambulances[4].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[5].lat %>,
+                                lng: <%=ambulances[5].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[6].lat %>,
+                                lng: <%=ambulances[6].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[7].lat %>,
+                                lng: <%=ambulances[7].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[8].lat %>,
+                                lng: <%=ambulances[8].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[9].lat %>,
+                                lng: <%=ambulances[9].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[10].lat %>,
+                                lng: <%=ambulances[10].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[11].lat %>,
+                                lng: <%=ambulances[11].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[12].lat %>,
+                                lng: <%=ambulances[12].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[13].lat %>,
+                                lng: <%=ambulances[13].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[14].lat %>,
+                                lng: <%=ambulances[14].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[15].lat %>,
+                                lng: <%=ambulances[15].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[16].lat %>,
+                                lng: <%=ambulances[16].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[17].lat %>,
+                                lng: <%=ambulances[17].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[18].lat %>,
+                                lng: <%=ambulances[18].lng %>
+                            },
+                            map: map,
+                        });
+                        var amb2 = new google.maps.Marker({
+                            position: {
+                                lat: <%=ambulances[19].lat %>,
+                                lng: <%=ambulances[19].lng %>
+                            },
+                            map: map,
+                        });
+
+                    }
+                </script>
+            </div>
+            <% } %>
+    </div>
+    </div>
+    </div>
+    <div id="map" style="height: 90%;position: relative; left: 300px; width:850px; margin-top: -590px; z-index: 100;"></div>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAGacVlPjOM1DNRLo_A6sFLf6t2M4xeY0&callback=initMap">
+    </script>
+    <% include ../partials/footer %>

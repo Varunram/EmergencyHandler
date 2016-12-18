@@ -1,0 +1,16 @@
+<% include ../partials/header %>
+  <h1> List of Incidents
+    <a href="/incidents/add" class="btn btn-success pull-right"> Add Incidents </a>
+    <hr />
+ </h1>
+
+ <div class="row incidents">
+   <% for(var i=0; i<incidents.length; i++) {%>
+       <div class="col-md-4 incidents">
+         <a href="/incidents/details/<%=incidents[i].id %>">
+         <h4 class="album-lng text-center"><%= incidents[i].lng %></h4>
+         <p class="lat-name text-center"><%= incidents[i].lat %></p>
+     </div>
+   <% } %>
+ </div>
+<% include ../partials/footer %>

@@ -1,0 +1,706 @@
+<!-- insert d3r.html -->
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset=utf-8 />
+    <title>108 Data Analysis</title>
+
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
+
+    <style>
+    #count-box {
+      display: block;
+      color: green;
+      font-size: 3em;
+      border-radius: 50%;
+      line-height: 50px;
+      height: 50px;
+      width: 50px;
+      text-align: center;
+      }
+      #box-cont{
+        position: absolute;
+        left:10px;
+        top: 300px;
+      }
+      #h21{
+        position: absolute;
+        left: 80px;
+        top: 280px;
+      }
+      #h22{
+        position: absolute;
+        left: 10px;
+        top: 350px;
+      }
+      #h23{
+        position: absolute;
+        left: 270px;
+        top: 345px;
+      }
+      #h24{
+          position: absolute;
+          left: 10px;
+          top: 410px;
+
+      }
+      #h25{
+          position: absolute;
+          left: 120px;
+          top: 470px;
+
+      }
+      #h26{
+          position: absolute;
+          left: 120px;
+          top: 530px;
+
+      }
+      #h27{
+          position: absolute;
+          left: 10px;
+          top: 590px;
+      }
+      #h28{
+          position: absolute;
+          left: 190px;
+          top: 650px;
+      }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto' sans-serif;
+        }
+        footer{
+          margin-top: 40px;
+          border-top: #333 solid 2px;
+          padding-top: 20px;
+          padding-bottom: 22px;
+
+        }
+
+        .map {
+            position: absolute;
+            top: 71px;
+            right: 0px;
+            bottom: 0;
+            width: 68%;
+            height: 100%;
+            border: 2px solid #333;
+            border-radius: 1px;
+            left:
+        }
+
+        .map-legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+
+        .leaflet-popup-close-button {
+            display: none;
+        }
+
+        .leaflet-popup-content-wrapper {
+            pointer-events: none;
+        }
+
+        .pie-graph,
+        .bar-graph {
+            width: 250px;
+            height: 250px;
+            border: thin solid grey;
+            background: black;
+            opacity: 1;
+            text-align: center;
+        }
+
+        .filter-ui {
+            background: black;
+            color: white;
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            z-index: 100;
+            padding: 10px;
+            border: thin solid grey;
+            border-radius: 3px;
+        }
+
+        .census-banner a {
+            background: black;
+            color: #ffd700;
+            position: absolute;
+            top: 303px;
+            left: 710px;
+            z-index: 1;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 24px;
+            border: thin solid grey;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+        .census-banner a:hover {
+            text-decoration: underline;
+        }
+        .info{
+            position: absolute;;
+            left: 50px;
+            padding-left: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <link rel = "stylesheet" href = "http://bootswatch.com/cyborg/bootstrap.min.css">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="users/login">108 Emergency</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class=""><a href="/incidents"></a></li>
+                    <li class=""><a href="/incidents">Medical</a></li>
+                    <li class=""><a href="/incidents">Police</a></li>
+                    <li class=""><a href="/incidents">Fire</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                <li class=""><a href="/drivers">Drivers</a></li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button">Personnel <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="users/login">Login</a></li>
+                    <li class="divider"></li>
+                    <li><a href="users/register">Register</a></li>
+                  </ul>
+                </li>
+                </ul
+            </div>
+        </div>
+    </nav>
+    <div id="box-cont">
+      <div id="count-box">200000</div>
+    </div>
+    <h2 id="h21"style="color:green;"><b>&nbsp;Lives </b>Saved </h2>
+    <h3 id="h22" style="color:red;">Response <b>Time:</b></h3>
+    <h2 id="h23" style="color:yellow;"><b>40s</b></h2>
+    <h2 id="h24"style="color:aqua;"><b>Ambulances </b></h2>
+    <% for(var i =0; i< ambulances.length; i++){ %>
+        <h2 id="h25" style="color:lightgreen;"><b>20</b>Active</h2>
+    <% } %>
+    <h2 id="h26" style="color:red;"><b>3 </b>Engaged</h2>
+    <h2 id="h27" style="color:blue;"><b>1.4857282 </b>Kms</h2>
+    <h2 id="h28" style="color:blue;"><b>Travelled</h2></b>
+
+    <div class ="info1" style="border: 1px solid #333; width: 350px;">
+        <h2 style ="padding: 15px; left: 15px;"> Data Analytics </h2>
+        <p style ="padding: 15px; left: 15px;"> Analyse Accident data based on App Usage State by State. Hover above the map for general data and Hover around the markers for more specific data.</p>
+    </div>
+    <div id='map' class='map'> </div>
+
+    <script id="popup-template" type="text/template">
+        <h2>{{state}}</h2>
+        <strong>Capital: </strong>{{capital}} <br>
+        <strong>Population: </strong>{{population}} <br>
+        <strong>{{density}}</strong> people per square kilometer <br>
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.countupcircle.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+  $('#count-box').CountUpCircle({
+  duration: 500000000, // In ms, default: 5000
+  opacity_anim: false,
+  step_divider: 1
+  });
+  });
+  </script>
+
+    <!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script type="text/javascript" src="/js/census-2011.js"></script>
+
+    <script>
+        L.mapbox.accessToken = 'pk.eyJ1IjoiaW5pdGRvdCIsImEiOiJ3VkkxTldvIn0.7UPZ8q9fgBE70dMV7e0sLw';
+
+        var map = L.mapbox.map('map', 'initdot.ljplbdcp').setView([21.836006, 87.824707], 5),
+            // color reference from color brewer
+            mapBrew = ['rgb(255,255,204)', 'rgb(217,240,163)', 'rgb(173,221,142)', 'rgb(120,198,121)', 'rgb(65,171,93)', 'rgb(35,132,67)', 'rgb(0,90,50)'],
+            // population density range used for choropleth and legend
+            mapRange = [5000, 1000, 800, 500, 300, 100, 0];
+
+        // map legend for population density
+        var legend = L.mapbox.legendControl({
+                position: "bottomleft"
+            }).addLegend(getLegendHTML()).addTo(map),
+            // popup for displaying state census details
+            popup = new L.Popup({
+                autoPan: false,
+                className: 'statsPopup'
+            }),
+            // layer for each state feature from geojson
+            statesLayer,
+            closeTooltip;
+
+        // fetch the state geojson data
+        d3.json("india-states.json", function(statesData) {
+            statesLayer = L.geoJson(statesData, {
+                style: getStyle,
+                onEachFeature: onEachFeature
+            }).addTo(map);
+        });
+
+        function getStyle(feature) {
+            return {
+                weight: 2,
+                opacity: 0.1,
+                color: 'black',
+                fillOpacity: 0.85,
+                fillColor: getDensityColor(indiaCensus.states[feature.properties.code].density)
+            };
+        }
+
+        // get color depending on population density value
+        function getDensityColor(d) {
+            var colors = Array.prototype.slice.call(mapBrew).reverse(), // creates a copy of the mapBrew array and reverses it
+                range = mapRange;
+
+            return d > range[0] ? colors[0] :
+                d > range[1] ? colors[1] :
+                d > range[2] ? colors[2] :
+                d > range[3] ? colors[3] :
+                d > range[4] ? colors[4] :
+                d > range[5] ? colors[5] :
+                colors[6];
+        }
+
+        function onEachFeature(feature, layer) {
+            layer.on({
+                mousemove: mousemove,
+                mouseout: mouseout,
+                //click: zoomToFeature
+            });
+        }
+
+        function mousemove(e) {
+            var layer = e.target;
+
+            var popupData = {
+                state: indiaCensus.states[layer.feature.properties.code].name,
+                density: indiaCensus.states[layer.feature.properties.code].density,
+                area: indiaCensus.states[layer.feature.properties.code].area,
+                growth: indiaCensus.states[layer.feature.properties.code].growth,
+                population: indiaCensus.states[layer.feature.properties.code].population,
+                capital: indiaCensus.states[layer.feature.properties.code].capital.name
+            };
+
+            popup.setLatLng(e.latlng);
+
+            var popContent = L.mapbox.template(d3.select("#popup-template").text(), popupData);
+            popup.setContent(popContent);
+
+            if (!popup._map) popup.openOn(map);
+            window.clearTimeout(closeTooltip);
+
+            // highlight feature
+            layer.setStyle({
+                weight: 2,
+                opacity: 0.3,
+                fillOpacity: 0.9
+            });
+
+            if (!L.Browser.ie && !L.Browser.opera) {
+                layer.bringToFront();
+            }
+            // update the graph with accident and sex ratio data
+            updateGraph(indiaCensus.states[layer.feature.properties.code]);
+        }
+
+        function mouseout(e) {
+            statesLayer.resetStyle(e.target);
+            closeTooltip = window.setTimeout(function() {
+                // ref: https://www.mapbox.com/mapbox.js/api/v2.1.6/l-map-class/
+                map.closePopup(popup); // close only the state details popup
+            }, 100);
+        }
+
+        function zoomToFeature(e) {
+            map.fitBounds(e.target.getBounds());
+        }
+
+        function getLegendHTML() {
+            var grades = Array.prototype.slice.call(mapRange).reverse(), // creates a copy of ranges and reverses it
+                labels = [],
+                from, to;
+            // color reference from color brewer
+            var brew = mapBrew;
+
+            for (var i = 0; i < grades.length; i++) {
+                from = grades[i];
+                to = grades[i + 1];
+
+                labels.push(
+                    '<i style="background:' + brew[i] + '"></i> ' +
+                    from + (to ? '&ndash;' + to : '+'));
+            }
+
+            return '<span>People per Square km</span><br>' + labels.join('<br>');
+        }
+
+        // ref: https://www.mapbox.com/mapbox.js/api/v2.1.6/l-icontrol/
+        var PieGraphControl = L.Control.extend({
+            options: {
+                position: 'topright'
+            },
+
+            onAdd: function(map) {
+                // create the control container with a particular class name
+                var container = L.DomUtil.create('div', 'pie-graph');
+                // ... initialize other DOM elements, add listeners, etc.
+                return container;
+            }
+        });
+
+        var BarGraphControl = L.Control.extend({
+            options: {
+                position: 'bottomright'
+            },
+
+            onAdd: function(map) {
+                // create the control container with a particular class name
+                var container = L.DomUtil.create('div', 'bar-graph');
+                // ... initialize other DOM elements, add listeners, etc.
+                return container;
+            }
+        });
+
+        // add the piegraph and bar graph container
+        map.addControl(new PieGraphControl())
+            .addControl(new BarGraphControl());
+
+        // START: Pie Graph
+        var width = 250,
+            height = 150,
+            pieColors = {
+                male: "steelblue",
+                female: "pink"
+            };
+
+        var pieName = d3.select(".pie-graph")
+            .append("div")
+            .text("Delhi")
+            .style("color", "white")
+            .style("font-size", "15px")
+            .style("font-weight", "bold")
+            .style("margin", "6px 0");
+
+        // append the svg elements to the graph containers
+        var pieSvg = d3.select(".pie-graph")
+            .append("svg")
+            .attr("id", "pie-graph")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        var pieLegend = d3.select(".pie-graph")
+            .append("div")
+            .attr("id", "pie-legend");
+
+        pieLegend.append("i")
+            .style("background", pieColors.female)
+            .style("padding", "5px")
+            .style("color", "black")
+            .text("Female");
+
+        pieLegend.append("i")
+            .style("background", pieColors.male)
+            .style("padding", "5px")
+            .style("color", "black")
+            .text("Male");
+
+        pieLegend.append("div")
+            .html("<strong> Male to Female Accident Ratio </strong>")
+            .style("color", "white")
+            .style("margin-top", "5px");
+
+        var pieRadius = 60;
+
+        var arc = d3.svg.arc()
+            .outerRadius(pieRadius - 5)
+            .innerRadius(0);
+
+        var pieData = [];
+
+        // initial data for Delhi
+        pieData.push({
+            type: "male",
+            ratio: 1000,
+            color: pieColors.male
+        });
+        pieData.push({
+            type: "female",
+            ratio: 868,
+            color: pieColors.female
+        });
+
+        var pie = d3.layout.pie()
+            .sort(null)
+            .value(function(d) {
+                return d.ratio;
+            })
+            // realigns the sector in the circle
+            .startAngle(3 * Math.PI)
+            .endAngle(1 * Math.PI)
+            // enable this for half circle view
+            //.startAngle(-90 * (Math.PI/180))
+            //.endAngle(90 * (Math.PI/180))
+        ;
+
+        var piePieces = pieSvg.selectAll(".pie-piece")
+            .data(pie(pieData))
+            .enter().append("g")
+            .attr("class", "pie-piece");
+
+        piePieces.append("path")
+            .attr("d", arc)
+            .style("fill", function(d) {
+                return d.data.color;
+            })
+            // the data is bound to the parent 'pie-piece' element
+            // but we need the data in the child path element for animating the arc
+            // store the oldangle data in the path element to animate the arc
+            .each(function(d) {
+                this._oldAngle = d;
+            });
+
+        piePieces.append("text")
+            .attr("transform", function(d) {
+                return "translate(" + arc.centroid(d) + ")";
+            })
+            .attr("dy", ".35em")
+            .style("text-anchor", "middle")
+            .text(function(d) {
+                return d.data.ratio;
+            });
+        // END: Pie Graph
+
+        // START: Bar Graph (accident)
+        var barWidth = 250,
+            barHeight = 180,
+            barSize = 50,
+            // attach the accident data for 'Delhi' initially
+            accidentData = [86.21];
+
+        var barName = d3.select(".bar-graph")
+            .append("div")
+            .text("Delhi")
+            .style("color", "white")
+            .style("font-size", "15px")
+            .style("font-weight", "bold")
+            .style("margin", "6px 0");
+
+        var barHolder = d3.select(".bar-graph")
+            .append("svg")
+            .attr("id", "accident-bar")
+            .attr("width", barWidth)
+            .attr("height", barHeight)
+            .append("rect")
+            .attr("width", barSize)
+            .attr("height", barHeight)
+            .attr("x", (barWidth - barSize) / 2)
+            .style("color", getaccidentColor(accidentData[0]));
+
+        var barLegend = d3.select(".bar-graph")
+            .append("div")
+            .style("color", "white")
+            .style("font-weight", "bold")
+            .style("font-size", "15px")
+            .text("accident: ")
+            .append("span")
+            .attr("id", "accident-percent")
+            .text(accidentData[0].toFixed(2) + "%")
+            .style("color", getaccidentColor(accidentData[0]));
+
+        var litBar = d3.select("#accident-bar").selectAll("rect")
+            .data(accidentData)
+            .attr("height", function(d) {
+                var h = barHeight * (d / 100);
+                return h;
+            })
+            .attr("y", function(d) {
+                var h = barHeight * (d / 100),
+                    nh = barHeight - h;
+                return nh;
+            })
+            .style("fill", function(d) {
+                return getaccidentColor(d);
+            });
+        // END: Bar Graph (accident)
+
+        // START: Updates both Pie Graph and Bar Graph
+        function updateGraph(graphData) {
+            // Update Pie Graph
+            pieData = [];
+
+            pieData.push({
+                type: "male",
+                ratio: 1000,
+                color: pieColors.male
+            });
+            pieData.push({
+                type: "female",
+                ratio: graphData.sexratio,
+                color: pieColors.female
+            });
+
+            // update pie
+            var pieUpdate = pieSvg.selectAll(".pie-piece")
+                // bind the new updated data
+                .data(pie(pieData));
+            // update pie arc
+            pieUpdate.select("path")
+                .transition().delay(300).attrTween("d", function(d) {
+                    // we have stored the angle data in path element in _oldAngle
+                    var i = d3.interpolate(this._oldAngle, d);
+                    // update the old angle data with current angle data
+                    this._oldAngle = i(0);
+                    //return a functor
+                    return function(t) {
+                        return arc(i(t));
+                    }
+                });
+            // update pie text
+            pieUpdate.select("text")
+                .attr("transform", function(d) {
+                    return "translate(" + arc.centroid(d) + ")";
+                })
+                .attr("dy", ".35em")
+                .style("text-anchor", "middle")
+                .text(function(d) {
+                    return d.data.ratio;
+                });
+            // update state name in pie graph
+            pieName.text(graphData.name);
+
+            // Update Bar Graph
+            barName.text(graphData.name);
+
+            accidentData = [];
+            accidentData.push(+graphData.accident);
+
+            d3.select("#accident-bar").selectAll("rect")
+                .data(accidentData)
+                .transition().duration(500)
+                .attr("height", function(d) {
+                    var h = barHeight * (d / 100);
+                    return h;
+                })
+                .attr("y", function(d) {
+                    var h = barHeight * (d / 100),
+                        nh = barHeight - h;
+                    return nh;
+                })
+                .style("fill", function(d) {
+                    return getaccidentColor(d);
+                });
+
+            barLegend.text(graphData.accident.toFixed(2) + "%")
+                .transition().duration(500)
+                .style("color", getaccidentColor(+graphData.accident));
+        } // END: updateChart()
+
+        function getaccidentColor(accident) {
+            // color from colorbrew
+            var accidentBrew = ['rgb(215,25,28)', 'rgb(253,174,97)', 'rgb(166,217,106)', 'rgb(26,150,65)'].reverse(),
+                accidentRange = [90, 80, 70, 60];
+
+            accident = +accident;
+
+            return accident > accidentRange[0] ? accidentBrew[0] :
+                accident > accidentRange[1] ? accidentBrew[1] :
+                accident > accidentRange[2] ? accidentBrew[2] :
+                accidentBrew[3];
+        }
+
+        // draw the layer with capital markers
+        var capitalLayer;
+
+        drawCapitalMarkers();
+
+        // add the capitals toggle checkbox
+        var capitalFilter = document.getElementById("capitals-filter"),
+            capitalFilterDiv = document.getElementById("capitals-filter-div");
+
+        capitalFilter.addEventListener("change", function() {
+            this.checked ? map.addLayer(capitalLayer) : map.removeLayer(capitalLayer);
+        });
+
+        setCapitalFilterPosition();
+
+        function drawCapitalMarkers() {
+            var capitalGeoJson = [];
+
+            for (var state in indiaCensus.states) {
+                var capitalData = indiaCensus.states[state].capital;
+                // capital marker geojson data
+                capitalData.details.forEach(function(capital, index) {
+                    // location is normally in (latitude, longitude) format
+                    // but for geojson the format is  (longitude, latitude)
+                    capitalGeoJson.push({
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            // make an array copy and reverse the co-ordinates to (long,lat) for geojson
+                            "coordinates": Array.prototype.slice.call(capital.coordinates).reverse()
+                        },
+                        "properties": {
+                            "title": capital.name,
+                            "description": capital.population ? "<strong>Population: </strong>" + capital.population : "(census data not available)",
+                            "data": capital,
+                            "marker-color": "#ffb90f",
+                            "marker-size": "small",
+                            "marker-symbol": "star"
+                        }
+                    });
+                }); // end of 'forEach'
+            } // end of 'for in'
+
+            // add the marker layer
+            capitalLayer = L.mapbox.featureLayer(capitalGeoJson).addTo(map);
+            // open the popup on hover
+            capitalLayer.on('mouseover', function(e) {
+                e.layer.openPopup();
+                // update the graph if census details is present
+                if (e.layer.feature.properties.data.sexratio) {
+                    updateGraph(e.layer.feature.properties.data);
+                }
+            });
+
+            capitalLayer.on('mouseout', function(e) {
+                e.layer.closePopup();
+            });
+        }
+
+        function setCapitalFilterPosition() {
+            var gistWidth = 960,
+                gistHeight = 707;
+            capitalFilterDiv.style.top = 0.5 * gistHeight + "px";
+            capitalFilterDiv.style.left = 0.78 * gistWidth + "px";
+            // adjust the defalut gist preview height
+            d3.select(self.frameElement).style("height", gistHeight + "px");
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+    "attribution": "<a href=\"https://www.mapbox.com/about/maps/\" target=\"_blank\">&copy; Mapbox</a> <a href=\"https://openstreetmap.org/about/\" target=\"_blank\">&copy; OpenStreetMap</a> <a class=\"mapbox-improve-map\" href=\"https://www.mapbox.com/map-feedback/\" target=\"_blank\">Improve this map</a>",
+    "autoscale": true,
+    "bounds": [
+        -180,
+        -85.0511,
+        180,
+        85.0511
+    ],
+    "center": [
+        77,
+        20,
+        4
+    ],
+    "created": 1427807277666,
+    "data": [
+        "http://a.tiles.mapbox.com/v4/initdot.ljplbdcp/features.json?access_token=pk.eyJ1IjoiaW5pdGRvdCIsImEiOiJ3VkkxTldvIn0.7UPZ8q9fgBE70dMV7e0sLw"
+    ],
+    "dataset": "28ea052796b555431586f3a41cdb1bdf",
+    "description": "Displays india census data for the year 2011",
+    "id": "initdot.ljplbdcp",
+    "mapbox_logo": true,
+    "maxzoom": 22,
+    "minzoom": 0,
+    "name": "India Census 2011",
+    "private": false,
+    "scheme": "xyz",
+    "tilejson": "2.0.0",
+    "tiles": [
+        "http://a.tiles.mapbox.com/v4/initdot.ljplbdcp/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaW5pdGRvdCIsImEiOiJ3VkkxTldvIn0.7UPZ8q9fgBE70dMV7e0sLw",
+        "http://b.tiles.mapbox.com/v4/initdot.ljplbdcp/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaW5pdGRvdCIsImEiOiJ3VkkxTldvIn0.7UPZ8q9fgBE70dMV7e0sLw"
+    ],
+    "webpage": "http://a.tiles.mapbox.com/v4/initdot.ljplbdcp/page.html?access_token=pk.eyJ1IjoiaW5pdGRvdCIsImEiOiJ3VkkxTldvIn0.7UPZ8q9fgBE70dMV7e0sLw"
+}

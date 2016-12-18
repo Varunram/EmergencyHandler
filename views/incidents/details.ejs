@@ -1,0 +1,1054 @@
+<!-- DOCTYPE html -->
+<html>
+<head>
+  <title>108 Incidents Control Panel </title>
+  <link rel = "stylesheet" href = "http://bootswatch.com/cyborg/bootstrap.min.css">
+  <link rel = "stylesheet" href = "/css/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function(){
+        $("#hide").click(function(){
+            $("#map").toggle();
+        });
+    });
+  </script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <script src= "/js/main.js"></script>
+  <style>
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 80%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s
+    }
+
+    /* Add Animation */
+    @-webkit-keyframes animatetop {
+        from {top:-300px; opacity:0}
+        to {top:0; opacity:1}
+    }
+
+    @keyframes animatetop {
+        from {top:-300px; opacity:0}
+        to {top:0; opacity:1}
+    }
+
+    /* The Close Button */
+    .close {
+        color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal-header {
+        font-family: 'Roboto', sans-serif;
+        font-size: 35px;
+        height: 100px;
+        background-color: #F06008;
+        color: white;
+        z-index:100;
+        text-align: center;
+    }
+
+    .modal-body {
+      height: 130px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 30px;
+      z-index:100;
+      text-align: center;
+    }
+
+    .modal-footer {
+      font-family: 'Roboto', sans-serif;
+      font-size: 30px;
+      height: 100px;
+      background-color: #5DADE2;
+      color: white;
+      z-index:100;
+      text-align: center;
+    }
+    #myBtn{
+      font-family: 'Roboto', sans-serif;
+      font-size: 15px;
+      color: #C4C4C4;
+      width: 260px;
+      height: 90px;
+      float: left;
+      border: 1px solid #00d2ff;
+      opacity: 1;
+      background: none;
+      padding: 15px;
+      cursor: pointer;
+    }
+    .hdr{
+      height: 65px;
+      padding-top: -10px;
+      padding-bottom: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse ">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">108 Control Panel</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse navbar-right">
+        <ul class="nav navbar-nav">
+          <li><a href="/users/register">Authenticate</a></li>
+          <li><a href="/users/login">Login</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <ul class="list-group">
+          <li class="list-group-item"><a href="/incidents">View Incidents</a></li>
+          <li class="list-group-item"><a href="/ambulances">View Ambulances</a></li>
+          <li class="list-group-item"><a href="/statuses">View Statuses</a></li><hr />
+          <li class="list-group-item"><a href="/statuses">Closest Hospitals (dist in km)</a></li><hr />
+            <div id = "first">
+            <button id = "myBtn">
+              <div id = "first-name"></div>
+              <div id = "first-dist"></div>
+              <div id="myModal" class="modal">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2>Ambulance/ Hospital Details</h2>
+                  </div>
+                  <div class="modal-body">
+                    <p>Anna Main Rd, Bharathidasan Colony, West Jafferkhanpet</p>
+                    <p>044-2489-2530</p>
+                  </div>
+                  <div class="modal-footer">
+                    <h3>Zone: Virugambakkam, Chennai</h3>
+                  </div>
+                </div>
+              </div>
+            </button>
+            </div>
+            <div id = "second">
+            <button id = "myBtn">
+              <div id = "second-name"></div>
+              <div id = "second-dist"></div>
+              <div id="myModal" class="modal">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2>Ambulance/ Hospital Details</h2>
+                  </div>
+                  <div class="modal-body">
+                    <p>Anna Main Rd, Bharathidasan Colony, West Jafferkhanpet</p>
+                    <p>044-2489-2530</p>
+                  </div>
+                  <div class="modal-footer">
+                    <h3>Zone: Virugambakkam, Chennai</h3>
+                  </div>
+                </div>
+              </div>
+            </button>
+            </div>
+            <div id = "third">
+            <button id = "myBtn">
+              <div id = "third-name"></div>
+              <div id = "third-dist"></div>
+              <div id="myModal" class="modal">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2>Ambulance/ Hospital Details</h2>
+                  </div>
+                  <div class="modal-body">
+                    <p>Anna Main Rd, Bharathidasan Colony, West Jafferkhanpet</p>
+                    <p>044-2489-2530</p>
+                  </div>
+                  <div class="modal-footer">
+                    <h3>Zone: Virugambakkam, Chennai</h3>
+                  </div>
+                </div>
+              </div>
+            </button>
+            </div>
+            <div id = "fourth">
+            <button id = "myBtn">
+              <div id = "fourth-name"></div>
+              <div id = "fourth-dist"></div>
+              <div id="myModal" class="modal">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2>Ambulance/ Hospital Details</h2>
+                  </div>
+                  <div class="modal-body">
+                    <p>Anna Main Rd, Bharathidasan Colony, West Jafferkhanpet</p>
+                    <p>044-2489-2530</p>
+                  </div>
+                  <div class="modal-footer">
+                    <h3>Zone: Virugambakkam, Chennai</h3>
+                  </div>
+                </div>
+              </div>
+            </button>
+            </div>
+            <div id = "fifth">
+            <button id = "myBtn">
+              <div id = "fifth-name"></div>
+              <div id = "fifth-dist"></div>
+              <div id="myModal" class="modal">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2>Ambulance/ Hospital Details</h2>
+                  </div>
+                  <div class="modal-body">
+                    <p>Anna Main Rd, Bharathidasan Colony, West Jafferkhanpet</p>
+                    <p>044-2489-2530</p>
+                  </div>
+                  <div class="modal-footer">
+                    <h3>Zone: Virugambakkam, Chennai</h3>
+                  </div>
+                </div>
+              </div>
+            </button>
+            </div>
+            <div id = "sixth">
+            <button id = "myBtn">
+              <div id = "sixth-name"></div>
+              <div id = "sixth-dist"></div>
+              <div id="myModal" class="modal">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2>Ambulance/ Hospital Details</h2>
+                  </div>
+                  <div class="modal-body">
+                    <p>Anna Main Rd, Bharathidasan Colony, West Jafferkhanpet</p>
+                    <p>044-2489-2530</p>
+                  </div>
+                  <div class="modal-footer">
+                    <h3>Zone: Virugambakkam, Chennai</h3>
+                  </div>
+                </div>
+              </div>
+            </button>
+            </div>
+            <div id = "seventh">
+            <button id = "myBtn">
+              <div id = "seventh-name"></div>
+              <div id = "seventh-dist"></div>
+              <div id="myModal" class="modal">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2>Ambulance/ Hospital Details</h2>
+                  </div>
+                  <div class="modal-body">
+                    <p>Anna Main Rd, Bharathidasan Colony, West Jafferkhanpet</p>
+                    <p>044-2489-2530</p>
+                  </div>
+                  <div class="modal-footer">
+                    <h3>Zone: Virugambakkam, Chennai</h3>
+                  </div>
+                </div>
+              </div>
+            </button>
+            </div>
+            <div id = "eigth">
+            <button id = "myBtn">
+              <div id = "eigth-name"></div>
+              <div id = "eigth-dist"></div>
+              <div id="myModal" class="modal">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2>Ambulance/ Hospital Details</h2>
+                  </div>
+                  <div class="modal-body">
+                    <p>Insert Details about the Road/Hospital</p>
+                    <p>044-2222-2222</p>
+                  </div>
+                  <div class="modal-footer">
+                    <h3>Zone: Zone Name, Chennai</h3>
+                  </div>
+                </div>
+              </div>
+            </button>
+            </div>
+        </ul>
+      </div>
+      <div class="col-md-9">
+        <% if (success_msg != false) { %>
+          <div class="alert alert-success" >
+            <%= success_msg %>
+          </div>
+        <% } %>
+        <% if (error_msg != false){ %>
+          <div class ="alert alert-danger">
+            <%= error_msg %>
+          </div>
+        <% } %>
+
+	<a href="/incidents" class="btn btn-default">Go Back</a>
+	<h1><%=incident.lat %> - <%=incident.lng %></h1>
+	<div class="row incident">
+		<div class="col-md-8">
+			<ul class="list-group">
+				<li class="list-group-item pull-left"><strong>Lat:</strong> <%= incident.lat %></li>
+				<li class="list-group-item pull-left"><strong>Lng:</strong> <%= incident.lng %></li>
+				<li class="list-group-item pull-left"><strong>Status:</strong> <%= incident.status %></li>
+			</ul>
+		</div>
+	</div>
+<hr />
+	<div class="row">
+		<div class="col-md-12">
+			<h4>Incident Info</h4><p><%= incident.status %></p><br>
+			<a href="#" data-id="<%= id %>" class="delete-incident btn btn-danger pull-right">Delete</a>
+			<a href="/incidents/edit/<%= id %>" class="btn btn-default pull-right">Edit</a>
+      <button id="hide" class="btn btn-success"> Show/Hide Nearest Hospitals </button><br><br>
+      <select onchange="doGTranslate(this);" class="btn btn-success pull-left"><option value="en|en">English</option><option value="en|hi">Hindi</option><option value="en|ta">Tamil</option><option value="en|te">Telugu</option><option value="en|te">Kannada</option></select>
+      <!-- GTranslate: https://gtranslate.io/ -->
+
+      <style type="text/css">
+          <!-- a.gflag {
+              vertical-align: middle;
+              font-size: 16px;
+              padding: 1px 0;
+              background-repeat: no-repeat;
+              background-image: url(//gtranslate.net/flags/16.png);
+          }
+
+          a.gflag img {
+              border: 0;
+          }
+
+          a.gflag:hover {
+              background-image: url(//gtranslate.net/flags/16a.png);
+          }
+
+          #goog-gt-tt {
+              display: none !important;
+          }
+
+          .goog-te-banner-frame {
+              display: none !important;
+          }
+
+          .goog-te-menu-value:hover {
+              text-decoration: none !important;
+          }
+
+          body {
+              top: 0 !important;
+          }
+
+          #google_translate_element2 {
+              display: none!important;
+          }
+
+          -->
+      </style>
+      <br />
+      <div id="google_translate_element2"></div>
+      <script type="text/javascript">
+          function googleTranslateElementInit2() {
+              new google.translate.TranslateElement({
+                  pageLanguage: 'en',
+                  autoDisplay: false
+              }, 'google_translate_element2');
+          }
+      </script>
+      <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2"></script>
+
+
+      <script type="text/javascript">
+          /* <![CDATA[ */
+          eval(function(p, a, c, k, e, r) {
+                  e = function(c) {
+                      return (c < a ? '' : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36))
+                  };
+                  if (!''.replace(/^/, String)) {
+                      while (c--) r[e(c)] = k[c] || e(c);
+                      k = [function(e) {
+                          return r[e]
+                      }];
+                      e = function() {
+                          return '\\w+'
+                      };
+                      c = 1
+                  };
+                  while (c--)
+                      if (k[c]) p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]);
+                  return p
+              }(
+                  '6 7(a,b){n{4(2.9){3 c=2.9("o");c.p(b,f,f);a.q(c)}g{3 c=2.r();a.s(\'t\'+b,c)}}u(e){}}6 h(a){4(a.8)a=a.8;4(a==\'\')v;3 b=a.w(\'|\')[1];3 c;3 d=2.x(\'y\');z(3 i=0;i<d.5;i++)4(d[i].A==\'B-C-D\')c=d[i];4(2.j(\'k\')==E||2.j(\'k\').l.5==0||c.5==0||c.l.5==0){F(6(){h(a)},G)}g{c.8=b;7(c,\'m\');7(c,\'m\')}}',
+                  43, 43,
+                  '||document|var|if|length|function|GTranslateFireEvent|value|createEvent||||||true|else|doGTranslate||getElementById|google_translate_element2|innerHTML|change|try|HTMLEvents|initEvent|dispatchEvent|createEventObject|fireEvent|on|catch|return|split|getElementsByTagName|select|for|className|goog|te|combo|null|setTimeout|500'
+                  .split('|'), 0, {}))
+              /* ]]> */
+      </script>
+
+			<hr />
+			<h2>Nearest Ambulances/Hospitals </h2>
+	</div>
+</div>
+</div>
+</div>
+<div id="map" style="height: 90%;position: relative; left: 15px; width:700px; margin-top: -590px; z-index: 100;"></div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+<script>
+
+	function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+		var R = 6371; // Radius of the earth
+		var dLat = deg2rad(lat2-lat1);  // degree to radian conversion
+		var dLon = deg2rad(lon2-lon1);
+		var a =
+			Math.sin(dLat/2) * Math.sin(dLat/2) +
+			Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+			Math.sin(dLon/2) * Math.sin(dLon/2)
+			;
+		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		var d = R * c; // Distance in km
+		return d;
+	}
+
+	function deg2rad(deg) {
+		return deg * (Math.PI/180)
+	}
+
+	function initMap() {
+		var custloc = {lat: <%= incident.lat %>, lng: <%= incident.lng %>};
+		var map = new google.maps.Map(document.getElementById('map'), {
+		          center: {lat: <%= incident.lat %>, lng: <%= incident.lng %>},
+		          zoom: 12,
+		          styles: [
+		            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+		            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+		            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+		            {
+		              featureType: 'administrative.locality',
+		              elementType: 'labels.text.fill',
+		              stylers: [{color: '#d59563'}]
+		            },
+		            {
+		              featureType: 'poi',
+		              elementType: 'labels.text.fill',
+		              stylers: [{color: '#d59563'}]
+		            },
+		            {
+		              featureType: 'poi.park',
+		              elementType: 'geometry',
+		              stylers: [{color: '#263c3f'}]
+		            },
+		            {
+		              featureType: 'poi.park',
+		              elementType: 'labels.text.fill',
+		              stylers: [{color: '#6b9a76'}]
+		            },
+		            {
+		              featureType: 'road',
+		              elementType: 'geometry',
+		              stylers: [{color: '#38414e'}]
+		            },
+		            {
+		              featureType: 'road',
+		              elementType: 'geometry.stroke',
+		              stylers: [{color: '#212a37'}]
+		            },
+		            {
+		              featureType: 'road',
+		              elementType: 'labels.text.fill',
+		              stylers: [{color: '#9ca5b3'}]
+		            },
+		            {
+		              featureType: 'road.highway',
+		              elementType: 'geometry',
+		              stylers: [{color: '#746855'}]
+		            },
+		            {
+		              featureType: 'road.highway',
+		              elementType: 'geometry.stroke',
+		              stylers: [{color: '#1f2835'}]
+		            },
+		            {
+		              featureType: 'road.highway',
+		              elementType: 'labels.text.fill',
+		              stylers: [{color: '#f3d19c'}]
+		            },
+		            {
+		              featureType: 'transit',
+		              elementType: 'geometry',
+		              stylers: [{color: '#2f3948'}]
+		            },
+		            {
+		              featureType: 'transit.station',
+		              elementType: 'labels.text.fill',
+		              stylers: [{color: '#d59563'}]
+		            },
+		            {
+		              featureType: 'water',
+		              elementType: 'geometry',
+		              stylers: [{color: '#17263c'}]
+		            },
+		            {
+		              featureType: 'water',
+		              elementType: 'labels.text.fill',
+		              stylers: [{color: '#515c6d'}]
+		            },
+		            {
+		              featureType: 'water',
+		              elementType: 'labels.text.stroke',
+		              stylers: [{color: '#17263c'}]
+		            }
+		          ]
+		        });
+		var ghc = {lat: 13.0814 , lng: 80.2772};
+		var saidapetgh = {lat: 13.020668, lng: 80.22427};
+		var vyasarpadi = {lat: 13.11083, lng: 80.273587};
+		var saltquarters = {lat: 13.094067, lng: 80.215774};
+		var icfpolice = {lat: 13.098669, lng: 80.223064};
+		var velachery = {lat: 12.985322, lng: 80.207779};
+		var koyambedu = {lat: 13.067068, lng: 80.286887};
+		var tondiarpet = {lat: 13.125934, lng: 80.22529};
+		var governor = {lat: 13.007737, lng: 80.278406};
+		var triplicane = {lat: 13.060429, lng: 80.249103};
+		var dms = {lat: 13.047168, lng: 80.285882};
+		var madrashc = {lat: 13.086801, lng: 80.258072};
+
+		var ich1egmore = {lat: 13.072557, lng: 80.258072};
+		var adyarcorp = {lat: 13.000132, lng: 80.255865};
+		var graemsrd = {lat: 13.067853, lng: 80.251622};
+		var mkbngr = {lat: 13.131869, lng: 80.25854};
+		var mogappair = {lat: 13.085169, lng: 80.187351};
+		var triphc = {lat: 13.060673, lng: 80.278445};
+		var thuraipakkam = {lat: 12.948692, lng: 80.240877};
+		var ayanavaram = {lat: 13.098981, lng: 80.230269};
+		var annanagar = {lat: 13.077867, lng: 80.218453};
+		var periyar = {lat: 13.115335, lng: 80.223571};
+		var kknagar = {lat: 13.034898, lng: 80.209654};
+		var multisp = {lat: 13.070565, lng: 80.275052};
+		var tajbh = {lat: 13.061603, lng: 80.263893};
+		var kodambakkam = {lat: 13.051992, lng: 80.21924};
+		var chetpet = {lat: 13.077175, lng: 80.242515};
+		var pattinapakkam = {lat: 13.022883, lng: 80.276197};
+		var tnagar = {lat: 13.034899, lng: 80.229481};
+		var nandanam = {lat: 13.029442, lng: 80.237528};
+
+		var marker101 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[0].lat %>,
+						lng: <%=ambulances[0].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+		var marker102 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[1].lat %>,
+						lng: <%=ambulances[1].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker103 = new google.maps.Marker({
+        position: {
+            lat: <%=ambulances[2].lat %>,
+            lng: <%=ambulances[2].lng %>
+        },
+        map: map,
+        icon: '/images/ambulance.png'
+    });
+    var marker104 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[3].lat %>,
+						lng: <%=ambulances[3].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker105 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[4].lat %>,
+						lng: <%=ambulances[4].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker106 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[5].lat %>,
+						lng: <%=ambulances[5].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker107 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[6].lat %>,
+						lng: <%=ambulances[6].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker108 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[7].lat %>,
+						lng: <%=ambulances[7].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker109 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[8].lat %>,
+						lng: <%=ambulances[8].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker110 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[9].lat %>,
+						lng: <%=ambulances[9].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker111 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[10].lat %>,
+						lng: <%=ambulances[10].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker112 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[11].lat %>,
+						lng: <%=ambulances[11].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker113 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[12].lat %>,
+						lng: <%=ambulances[12].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker114 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[13].lat %>,
+						lng: <%=ambulances[13].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker115 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[14].lat %>,
+						lng: <%=ambulances[14].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker116 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[15].lat %>,
+						lng: <%=ambulances[15].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker117 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[16].lat %>,
+						lng: <%=ambulances[16].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker118 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[17].lat %>,
+						lng: <%=ambulances[17].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker119 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[18].lat %>,
+						lng: <%=ambulances[18].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+    var marker120 = new google.maps.Marker({
+				position: {
+						lat: <%=ambulances[19].lat %>,
+						lng: <%=ambulances[19].lng %>
+				},
+				map: map,
+				icon: '/images/ambulance.png'
+		});
+
+		var marker100 = new google.maps.Marker({
+			position: custloc,
+			map: map,
+			icon: '/images/firstaid.png'
+		});
+
+		var marker1 = new google.maps.Marker({
+			position: saidapetgh,
+			map: map,
+			icon: '/images/hospital.png'
+		});
+		var marker2 = new google.maps.Marker({
+			position: vyasarpadi,
+			map: map,
+			icon: '/images/hospital.png'
+		});
+		var marker3 = new google.maps.Marker({
+			position: saltquarters,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker4 = new google.maps.Marker({
+			position: icfpolice,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker5 = new google.maps.Marker({
+			position: velachery,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker6 = new google.maps.Marker({
+			position: tondiarpet,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker7 = new google.maps.Marker({
+			position: koyambedu,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker8 = new google.maps.Marker({
+			position: governor,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker9 = new google.maps.Marker({
+			position: triplicane,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker10 = new google.maps.Marker({
+			position: dms,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker11 = new google.maps.Marker({
+			position: madrashc,
+			map: map,
+			icon: '/images/hospital.png'
+		});
+
+		var marker13 = new google.maps.Marker({
+			position: ich1egmore,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker14 = new google.maps.Marker({
+			position: adyarcorp,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker15 = new google.maps.Marker({
+			position: graemsrd,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker16 = new google.maps.Marker({
+			position: mkbngr,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker17 = new google.maps.Marker({
+			position: mogappair,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker18 = new google.maps.Marker({
+			position: triphc,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker19 = new google.maps.Marker({
+			position: thuraipakkam,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker20 = new google.maps.Marker({
+			position: ayanavaram,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker21 = new google.maps.Marker({
+			position: annanagar,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker22 = new google.maps.Marker({
+			position: periyar,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker23 = new google.maps.Marker({
+			position: kknagar,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker24 = new google.maps.Marker({
+			position: multisp,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker25 = new google.maps.Marker({
+			position: tajbh,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker26 = new google.maps.Marker({
+			position: kodambakkam,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker27 = new google.maps.Marker({
+			position: chetpet,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker28 = new google.maps.Marker({
+			position: pattinapakkam,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker29 = new google.maps.Marker({
+			position: tnagar,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+		var marker30 = new google.maps.Marker({
+			position: nandanam,
+			map: map,
+			icon: '/images/hospital.png'
+
+		});
+
+		var array = [
+// GHC      { lat: "13.0814", lng: "80.2772", name: "NANDANAM FIRE STATION"},
+		{ lat: "13.020668", lng: "80.22427", name: "SAIDAPET GH"},
+		{ lat: "13.11083", lng: "80.273587", name: "VYASARPADI (G.P) PHC"},
+		{ lat: "13.094067", lng: "80.215774", name: "SALT QUARTERS"},
+		{ lat: "13.098669", lng: "80.223064", name: "ICF POLICE STATION"},
+		{ lat: "12.985322", lng: "80.207779", name: "VELACHERY CORP. OFFICE"},
+		{ lat: "13.067068", lng: "80.286887", name: "KOYAMBEDU SAF QUARTERS"},
+		{ lat: "13.125934", lng: "80.22529", name: "TONDIARPET CDH"},
+		{ lat: "13.007737", lng: "80.278406", name: "GOVERNOR HOUSE CHENNAI"},
+		{ lat: "13.060429", lng: "80.249103", name: "TRIPLICANE NO. 2"},
+		{ lat: "13.047168", lng: "80.285882", name: "DMS"},
+		{ lat: "13.086801", lng: "80.258072", name: "MADRAS HIGH COURT"},
+		{ lat: "13.072557", lng: "80.258072", name: "ICH-1 EGMORE"},
+		{ lat: "13.000132", lng: "80.255865", name: "ADYAR CORP HOSPITAL"},
+		{ lat: "13.067853", lng: "80.251622", name: "GRAEMS ROAD"},
+		{ lat: "13.131869", lng: "80.25854", name: "MKB NAGAR"},
+		{ lat: "13.085169", lng: "80.187351", name: "MOGAPPAIR"},
+		{ lat: "13.060673", lng: "80.278445", name: "TRIPLICANE HO"},
+		{ lat: "12.948692", lng: "80.240877", name: "OKKIYAM THURAIPAKKAM"},
+		{ lat: "13.098981", lng: "80.230269", name: "AYANAVARAM PHC"},
+		{ lat: "13.077867", lng: "80.218453", name: "ANNA NAGAR SIDDHA HOSPITAL"},
+		{ lat: "13.115335", lng: "80.223571", name: "PERIYAR NAGAR P.H."},
+		{ lat: "13.034898", lng: "80.209654", name: "K.K NAGAR P.H."},
+		{ lat: "13.070565", lng: "80.275052", name: "MULTI SPEC. HOSPITAL"},
+		{ lat: "13.061603", lng: "80.263893", name: "TAJ MOUNT ROAD"},
+		{ lat: "13.051992", lng: "80.21924", name:  "KODAMBAKKAM POWER HOUSE"},
+		{ lat: "13.077175", lng: "80.242515", name: "CHETPET"},
+		{ lat: "13.022883", lng: "80.276197", name: "PATTINABAKKAM"},
+		{ lat: "13.034899", lng: "80.229481", name: "T NAGAR POLICE STATION"},
+		{ lat: "13.029442", lng: "80.237528", name: "NANDANAM FIRE STATION"}
+
+		];
+		var array2 = new Array(30);
+		for(var i = 0; i < array.length; i++){
+			array2[i] = getDistanceFromLatLonInKm(array[i].lat, array[i].lng, custloc.lat, custloc.lng);
+		//  //console.log(array2[i]);
+		}
+		function compareNumbers(a, b) {
+			return a - b;
+		}
+		array2.sort(compareNumbers);
+		////console.log(array2);
+		for(var i = 0; i < 29; i++){
+			if(array2[0] == getDistanceFromLatLonInKm(array[i].lat, array[i].lng, custloc.lat, custloc.lng)){
+			//	//console.log(array[i]);
+				document.getElementById("first-name").innerHTML = array[i].name;
+
+				document.getElementById("first-dist").innerHTML = array2[0];
+			}
+		}
+		for(var i = 0; i < 29; i++){
+			if(array2[1] == getDistanceFromLatLonInKm(array[i].lat, array[i].lng, custloc.lat, custloc.lng)){
+				//console.log(array[i]);
+				document.getElementById("second-name").innerHTML = array[i].name;
+				document.getElementById("second-dist").innerHTML = array2[1];
+			}
+		}
+		for(var i = 0; i < 29; i++){
+			if(array2[2] == getDistanceFromLatLonInKm(array[i].lat, array[i].lng, custloc.lat, custloc.lng)){
+				////console.log(array[i]);
+				document.getElementById("third-name").innerHTML = array[i].name;
+				document.getElementById("third-dist").innerHTML = array2[2];
+			}
+		}
+		for(var i = 0; i < 29; i++){
+			if(array2[2] == getDistanceFromLatLonInKm(array[i].lat, array[i].lng, custloc.lat, custloc.lng)){
+				////console.log(array[i]);
+				document.getElementById("third-name").innerHTML = array[i].name;
+				document.getElementById("third-dist").innerHTML = array2[2];
+			}
+		}
+		for(var i = 0; i < 29; i++){
+			if(array2[2] == getDistanceFromLatLonInKm(array[i].lat, array[i].lng, custloc.lat, custloc.lng)){
+				//console.log(array[i]);
+				document.getElementById("third-name").innerHTML = array[i].name;
+				document.getElementById("third-dist").innerHTML = array2[2];
+			}
+		}
+		for(var i = 0; i < 29; i++){
+			if(array2[2] == getDistanceFromLatLonInKm(array[i].lat, array[i].lng, custloc.lat, custloc.lng)){
+				//console.log(array[i]);
+				document.getElementById("third-name").innerHTML = array[i].name;
+				document.getElementById("third-dist").innerHTML = array2[2];
+			}
+		}
+		for(var i = 0; i < 29; i++){
+			if(array2[3] == getDistanceFromLatLonInKm(array[i].lat, array[i].lng, custloc.lat, custloc.lng)){
+				//console.log(array[i]);
+				document.getElementById("fourth-name").innerHTML = array[i].name;
+				document.getElementById("fourth-dist").innerHTML = array2[3];
+			}
+		}
+		for(var i = 0; i < 29; i++){
+			if(array2[4] == getDistanceFromLatLonInKm(array[i].lat, array[i].lng, custloc.lat, custloc.lng)){
+				//console.log(array[i]);
+				document.getElementById("fifth-name").innerHTML = array[i].name;
+				document.getElementById("fifth-dist").innerHTML = array2[3];
+			}
+		}
+		for(var i = 0; i < 29; i++){
+			if(array2[5] == getDistanceFromLatLonInKm(array[i].lat, array[i].lng, custloc.lat, custloc.lng)){
+				//console.log(array[i]);
+				document.getElementById("sixth-name").innerHTML = array[i].name;
+				document.getElementById("sixth-dist").innerHTML = array2[5];
+			}
+		}
+		for(var i = 0; i < 29; i++){
+			if(array2[6] == getDistanceFromLatLonInKm(array[i].lat, array[i].lng, custloc.lat, custloc.lng)){
+				//console.log(array[i]);
+				document.getElementById("seventh-name").innerHTML = array[i].name;
+				document.getElementById("seventh-dist").innerHTML = array2[6];
+			}
+		}
+		for(var i = 0; i < 29; i++){
+			if(array2[7] == getDistanceFromLatLonInKm(array[i].lat, array[i].lng, custloc.lat, custloc.lng)){
+				//console.log(array[i]);
+				document.getElementById("eigth-name").innerHTML = array[i].name;
+				document.getElementById("eigth-dist").innerHTML = array2[7];
+			}
+		}
+
+
+	}
+</script>
+
+<script>
+	var modal = document.getElementById('myModal');
+	var btn = document.getElementById("myBtn");
+	btn.onclick = function() {
+			modal.style.display = "block";
+	}
+	window.onclick = function(event) {
+			if (event.target == modal) {
+					modal.style.display = "none";
+			}
+	}
+</script>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAGacVlPjOM1DNRLo_A6sFLf6t2M4xeY0&callback=initMap">
+</script>
+
+<% include ../partials/footer %>

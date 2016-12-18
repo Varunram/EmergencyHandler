@@ -1,0 +1,23 @@
+<% include ../partials/header %>
+	<h1>Add Incident</h1>
+	<form method="post" action="/incidents/add">
+	  <div class="form-group">
+	    <label>Incident Lat</label>
+	    <input type="text" class="form-control" name="lat" placeholder="Enter Latitude">
+	  </div>
+	  <div class="form-group">
+	    <label>Incident Lng</label>
+	    <input type="text" class="form-control" name="lng" placeholder="Enter Longitude">
+	  </div>
+	  <div class="form-group">
+	    <label>Status</label>
+	    <select name="status" class="form-control">
+	    	<% for(var i=0; i<statuses.length; i++) {%>
+   				<option value="<%= statuses[i].name %>"><%= statuses[i].name %></option>
+			<% } %>
+		</select>
+	  </div>
+	  <button type="submit" class="btn btn-default">Submit</button>
+	   <a class="btn btn-danger" href="/incidents">Close</a>
+	</form>
+<% include ../partials/footer %>
