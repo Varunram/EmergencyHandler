@@ -11,20 +11,20 @@ To test, run
 If you're using this in your own project, make sure you have mongodb installed and firebase keys changed according to your requirements.
 
 ## Screenshots
-![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/1.jpg)
+![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/1.png)
 
-![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/2.jpg)
+![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/2.png)
 
-![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/3.jpg)
+![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/3.png)
 
-![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/4.jpg)
+![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/4.png)
 
-![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/5.jpg)
+![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/5.png)
 
-![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/6.jpg)
+![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/6.png)
 
-![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/7.jpg)
+![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/7.png)
 
-![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/8.jpg)
+![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/8.png)
 
-![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/9.jpg)
+![image](https://github.com/Varunram/EmergencyHandler/blob/master/images/9.png)
