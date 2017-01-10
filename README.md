@@ -9,3 +9,22 @@ To test, run
  node app.js
 ```
 If you're using this in your own project, make sure you have mongodb installed and firebase keys changed according to your requirements.
+
+## Screenshots
+![image](https://github.com/Varunram/Dave/blob/master/images/1.jpg)
+
+![image](https://github.com/Varunram/Dave/blob/master/images/2.jpg)
+
+![image](https://github.com/Varunram/Dave/blob/master/images/3.jpg)
+
+![image](https://github.com/Varunram/Dave/blob/master/images/4.jpg)
+
+![image](https://github.com/Varunram/Dave/blob/master/images/5.jpg)
+
+![image](https://github.com/Varunram/Dave/blob/master/images/6.jpg)
+
+![image](https://github.com/Varunram/Dave/blob/master/images/7.jpg)
+
+![image](https://github.com/Varunram/Dave/blob/master/images/8.jpg)
+
+![image](https://github.com/Varunram/Dave/blob/master/images/9.jpg)
